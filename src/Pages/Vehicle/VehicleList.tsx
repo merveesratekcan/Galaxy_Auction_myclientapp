@@ -1,23 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGetVehiclesQuery } from '../../Api/vehicleApi'
+import { vehicleModel } from '../../Interfaces/vehicleModel'
 
 function VehicleList() {
 
     const {data, isLoading} = useGetVehiclesQuery(null)
-    const [write,setWriteState] = useState("data is Loading...")
-    const handleClickFoVelicle = () => {
-        console.log(data)
-        setWriteState("data is Loaded")
-    }
+    const [vehicles, setVehicleState] = useState<vehicleModel[]>([])
+
+    useEffect(()=>{
+      if (data ) {
+        setVehicleState(data.result);
+       
+  
+      }
+     
+    },[data])
+
 
   return (
-    <div>
-        <button className='btn btn-primary' onClick={() => handleClickFoVelicle()} disabled={isLoading}>
-            {isLoading ? "Loading..." : "Get Vehicles"}
+    <div className='container'>
 
-        </button>
-        <h1>{write}</h1>
-    </div>
+      {
+        vehicles.map((vehicle,index) => {
+          return (
+            <div className='auction-card text-center'> 
+            <div className='card-image text-center'>
+              <img src={vehicle.image} > 
+              </img>
+            </div>
+            <div className='card-details text-center'>
+              <h2></h2>
+              <p><strong></strong></p>
+              <p><strong></strong></p>
+              <p><strong></strong></p>
+              <p><strong></strong></p>
+            </div>
+          </div>
+
+          )
+      })
+}
+</div>
   )
 }
 
