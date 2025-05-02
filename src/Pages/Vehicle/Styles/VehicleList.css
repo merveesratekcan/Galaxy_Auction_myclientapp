@@ -1,55 +1,76 @@
 .auction-card {
-    position: relative;
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(201, 10, 10, 0.2);
-    display: flex;
-    flex-direction: column;
-    max-width: 620px;
-    max-height: 600px;
-    margin: 20px;
-    padding: 20px;
-    background-color: rgb(119, 121, 118);
-    color: #fff;
-    
-  }
-  
-  .card-image img {
-    max-width: 500px;
-    max-height: 275px;
-    height: auto;
-  }
-  
-  .card-details {
-    margin-top: 15px;
-  }
-  
-  .card-details h2 {
-    font-size: 1.5rem;
-    color: #ff0000; /* Kırmızı başlık */
-  }
-  
-  .card-details p {
-    margin: 5px 0;
-    color: #fff;
-  }
-  
-  .card-action button {
-    background-color: #ff0000; /* Kırmızı düğme arka planı */
-    color: #000; /* Siyah düğme metni */
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .card-action button:hover {
-    background-color: #ff6666; /* Düğme üzerine gelindiğinde rengi açık kırmızı yap */
-  }
-  .page-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Sayfa yüksekliğine göre ayarlayabilirsiniz */
-  }
+  position: relative;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-width: 620px;
+  max-height: 600px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auction-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-image img {
+  max-width: 100%;
+  max-height: 275px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.card-details {
+  margin-top: 15px;
+}
+
+.card-details h2 {
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-details p {
+  margin: 5px 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+.card-action button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-action button:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.page-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+  padding: 20px;
+  box-sizing: border-box;
+}
