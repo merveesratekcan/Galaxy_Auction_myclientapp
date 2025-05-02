@@ -1,3 +1,5 @@
 import VehicleList from "./VehicleList";
+import Circle from "./Circle";
 
-export default VehicleList;
+
+export { VehicleList, Circle };
