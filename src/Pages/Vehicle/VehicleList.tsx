@@ -3,6 +3,8 @@ import React from 'react';
 import { vehicleModel } from '../../Interfaces/vehicleModel';
 import './Styles/VehicleList.css';
 import Circle from './Circle';
+import { Link } from 'react-router-dom';
+import Banner from './Banner';
 
 interface VehicleListProps {
     vehicles: vehicleModel[];
@@ -11,7 +13,11 @@ interface VehicleListProps {
 const VehicleList: React.FC<VehicleListProps> = ({ vehicles }) => {
     return (
         <>
+        
             {vehicles.map((vehicle, index) => (
+                
+                <div className='container' key={index}>
+                    {/* <Banner></Banner> */}
                 <div key={index} className="auction-card text-center">
                     <div className="card-image text-center">
                         <img
@@ -27,9 +33,13 @@ const VehicleList: React.FC<VehicleListProps> = ({ vehicles }) => {
                         <p><strong>End Time:</strong> {vehicle.endTime}</p>
                     </div>
                     <div className="card-actions text-center">
+                        <Link to={`Vehicle/VehicleId/${vehicle.vehicleId}`}>
                         <button className="btn btn-danger">Detail</button>
+                        </Link>
+                        
                     </div>
                     <Circle vehicle={vehicle} />
+                </div>
                 </div>
             ))}
         </>

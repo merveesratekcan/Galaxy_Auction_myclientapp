@@ -1,13 +1,24 @@
 import React from 'react';
 import './App.css';
-import VehicleBase from '../Pages/Vehicle/VehicleBase';
+
 import { Header } from '../Layout';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import VehicleDetail from '../Pages/Vehicle/VehicleDetail';
+import { VehicleList } from '../Pages/Vehicle';
+import VehicleBase from '../Pages/Vehicle/VehicleBase';
 
 function App() {
     return (
         <div className="App">
-            <VehicleBase />
+            
             <Header />
+            {/* <VehicleBase /> */}
+            <div className='pd-5'>
+                <Routes>
+                    <Route path='Vehicle/VehicleId/:vehicleId' element={<VehicleDetail></VehicleDetail>}></Route>
+                    <Route path='/' element={<VehicleBase></VehicleBase>}></Route>
+                </Routes>
+            </div>
         </div>
     );
 }

@@ -9,7 +9,13 @@ const vehicleApi = createApi({
         getVehicles: builder.query({
             query: () => ({
                 url: '/GetVehicle',
-                method: 'GET',
+                // method: 'GET',
+            })
+        }),
+        getVehicleById: builder.query({
+            query: (id) => ({
+                url: `${id}`,
+
             })
         }),
        
@@ -17,5 +23,5 @@ const vehicleApi = createApi({
 })
 
 
-export const { useGetVehiclesQuery } = vehicleApi;
+export const { useGetVehiclesQuery, useGetVehicleByIdQuery} = vehicleApi;
 export default vehicleApi;
