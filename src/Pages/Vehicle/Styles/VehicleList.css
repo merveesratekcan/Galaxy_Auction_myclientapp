@@ -1,3 +1,17 @@
+/* Sayfa düzeni için grid container */
+.page-center {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Dinamik sütunlar */
+  gap: 20px; /* Kartlar arasındaki boşluk */
+  justify-content: center;
+  align-items: start;
+  padding: 20px;
+  background-color: #f4f4f9;
+  box-sizing: border-box;
+  min-height: 100vh; /* Sayfanın tamamını kapla */
+}
+
+/* Kart tasarımı */
 .auction-card {
   position: relative;
   border: 1px solid #e0e0e0;
@@ -5,11 +19,9 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  max-width: 620px;
   max-height: 600px;
-  margin: 20px;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f4f4f9;
   color: #333;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -19,6 +31,7 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Kart içeriği */
 .card-image img {
   max-width: 100%;
   max-height: 275px;
@@ -46,6 +59,7 @@
   line-height: 1.6;
 }
 
+/* Kart aksiyon düğmesi */
 .card-action button {
   background-color: #007bff;
   color: #fff;
@@ -63,14 +77,4 @@
   background-color: #0056b3;
   transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.page-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f4f4f9;
-  padding: 20px;
-  box-sizing: border-box;
 }

@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import VehicleDetail from '../Pages/Vehicle/VehicleDetail';
 import { VehicleList } from '../Pages/Vehicle';
 import VehicleBase from '../Pages/Vehicle/VehicleBase';
+import Register from '../Pages/Account/Register';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Routes>
                     <Route path='Vehicle/VehicleId/:vehicleId' element={<VehicleDetail></VehicleDetail>}></Route>
                     <Route path='/' element={<VehicleBase></VehicleBase>}></Route>
+                    <Route path='Register' element={<Register></Register>}></Route>
                 </Routes>
             </div>
         </div>

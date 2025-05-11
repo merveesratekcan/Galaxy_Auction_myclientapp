@@ -13,11 +13,11 @@ interface VehicleListProps {
 const VehicleList: React.FC<VehicleListProps> = ({ vehicles }) => {
     return (
         <>
-        
+        <Banner></Banner> 
             {vehicles.map((vehicle, index) => (
                 
                 <div className='container' key={index}>
-                    {/* <Banner></Banner> */}
+                     
                 <div key={index} className="auction-card text-center">
                     <div className="card-image text-center">
                         <img
