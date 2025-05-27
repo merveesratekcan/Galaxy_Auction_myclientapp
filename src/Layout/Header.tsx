@@ -75,10 +75,23 @@
 
 // export default Header
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Style/Header.css';
+import { useSelector } from 'react-redux';
+import userModel from '../Interfaces/userModel';
+import { RootState } from '../Storage/store';
+
 
 function Header() {
+
+  const userStore : userModel = useSelector((state: RootState) => state.authentication);
+  const token = localStorage.getItem('token');
+  useEffect(() => {
+    console.log("User Store:", userStore);
+    console.log("triggered");
+  }
+  , [userStore]);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-gray">
       <div className="container">
@@ -100,9 +113,17 @@ function Header() {
             <li className="nav-item active">
               <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Fullname</a>
-            </li>
+
+            { 
+            userStore ? (           
+              
+              <li className="nav-item">
+              <a className="nav-link" href="#">
+                {userStore.fullName ? userStore.fullName : "User"}
+              </a>
+            </li>) :" "
+          }
+
             <li className="nav-item dropdown">
               <button
                 className="btn btn-dark dropdown-toggle"
@@ -116,16 +137,26 @@ function Header() {
               </ul>
             </li>
           </ul>
-          <ul className="navbar-nav">
-            <li className="nav-item" style={{ marginRight: "5px" }}>
-              <a className="btn btn-success" href="#">Register</a>
-            </li>
-            <li className="nav-item" style={{ marginRight: "5px" }}>
-              <a className="btn btn-success" href="#">Login</a>
-            </li>
-            <li className="nav-item" style={{ marginRight: "5px" }}>
+ <ul className="navbar-nav">
+          {userStore ?  (
+             <li className="nav-item" style={{ marginRight: "5px" }}>
               <a className="btn btn-danger" href="#">Logout</a>
             </li>
+          ) : (
+            <>
+              <li className="nav-item" style={{ marginRight: "5px" }}>
+                <a className="btn btn-success" href="#">Register</a>
+              </li>
+              <li className="nav-item" style={{ marginRight: "5px" }}>
+                <a className="btn btn-success" href="#">Login</a>
+              </li>
+            </>
+          )
+              
+          }
+         
+           
+           
           </ul>
         </div>
       </div>

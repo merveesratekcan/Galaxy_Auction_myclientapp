@@ -26,9 +26,10 @@ function Login() {
         })  
         if(response.data?.isSuccess){
             const token = response.data.result.token;
-            const {id, email, role, fullname} : UserModel= jwtDecode(token);
+            localStorage.setItem('token', token);
+            const {email,fullName, nameid, role} : UserModel= jwtDecode(token);
             Dispatch(setLoggerInUser({
-             fullname, id, email, role
+             email,fullName, nameid, role
             }))
         }  
     }
