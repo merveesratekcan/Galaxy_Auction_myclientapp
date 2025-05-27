@@ -13,9 +13,19 @@ export const accountApi=createApi({
                     "Content-Type":"application/json",
                 },
                 body:userData
-            }),        
+            })       
+        }),
+    signIn:builder.mutation({
+            query:(userData)=>({
+                url:"Login",
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                },
+                body:userData
+            })
         })
     })
 })
 
-export const {useSignUpMutation}=accountApi
+export const {useSignUpMutation,useSignInMutation}=accountApi

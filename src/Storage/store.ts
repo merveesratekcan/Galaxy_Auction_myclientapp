@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { vehicleReducer, vehicleSlice } from "./Redux/vehicleSlice";
 import vehicleApi from "../Api/vehicleApi";
 import { accountApi } from "../Api/accountApi";
+import { authenticationReducer } from "./Redux/authenticationSlice";
 
 const store = configureStore({
     reducer: {
         vehicleStore:vehicleReducer,
+        authentication: authenticationReducer,
 
         [vehicleApi.reducerPath]: vehicleApi.reducer,
         [accountApi.reducerPath]: accountApi.reducer,
