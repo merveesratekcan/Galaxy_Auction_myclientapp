@@ -1,7 +1,7 @@
 .circle {
     width: 120px;
     height: 120px;
-    background: linear-gradient(135deg, #e0e0e0, #b0b0b0); /* Gri gradient arka plan */
+    background: linear-gradient(135deg, #f70202, #b0b0b0); /* Gri gradient arka plan */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06); /* Hafif gölge */
     display: flex;
     justify-content: center;
@@ -16,5 +16,5 @@
 .circle:hover {
     transform: scale(1.1); /* Hover'da büyüme efekti */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1); /* Hover'da daha belirgin gölge */
-    background: linear-gradient(135deg, #d6d6d6, #a6a6a6); /* Hover'da daha koyu gri gradient */
+    background: linear-gradient(135deg, #f70202, #a6a6a6); /* Hover'da daha koyu gri gradient */
 }

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useGetVehiclesQuery } from '../../Api/vehicleApi';
 import { vehicleModel } from '../../Interfaces/vehicleModel';
@@ -9,11 +8,11 @@ function VehicleBase() {
     const [vehicles, setVehicleState] = useState<vehicleModel[]>([]);
 
     useEffect(() => {
-        console.log(data); // Gelen veriyi kontrol edin
-        if (data && data.result && Array.isArray(data.result.$values)) {
-            setVehicleState(data.result.$values); // Doğru veriyi alın
+        console.log("API Response:", data); // Debug için
+        if (data && Array.isArray(data.result)) {
+            setVehicleState(data.result);
         } else {
-            setVehicleState([]); // Eğer veri yoksa boş bir dizi atayın
+            setVehicleState([]);
         }
     }, [data]);
 

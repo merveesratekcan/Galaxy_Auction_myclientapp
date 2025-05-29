@@ -1,80 +1,110 @@
-/* Sayfa düzeni için grid container */
 .page-center {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Dinamik sütunlar */
-  gap: 20px; /* Kartlar arasındaki boşluk */
-  justify-content: center;
-  align-items: start;
-  padding: 20px;
-  background-color: #f4f4f9;
-  box-sizing: border-box;
-  min-height: 100vh; /* Sayfanın tamamını kapla */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  padding: 40px 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
+  min-height: 100vh;
 }
 
-/* Kart tasarımı */
 .auction-card {
-  position: relative;
-  border: 1px solid #e0e0e0;
-  border-radius: 15px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(60, 72, 88, 0.15), 0 1.5px 4px rgba(0,0,0,0.04);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  max-height: 600px;
-  padding: 20px;
-  background-color: #f4f4f9;
-  color: #333;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  align-items: stretch;
+  transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s;
+  position: relative;
 }
 
 .auction-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 16px 48px rgba(60, 72, 88, 0.22), 0 2px 8px rgba(0,0,0,0.08);
+  z-index: 2;
 }
 
-/* Kart içeriği */
 .card-image img {
-  max-width: 100%;
-  max-height: 275px;
-  height: auto;
-  border-radius: 10px;
+  width: 100%;
+  height: 210px;
   object-fit: cover;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  transition: filter 0.3s;
+}
+
+.auction-card:hover .card-image img {
+  filter: brightness(0.95) saturate(1.2);
 }
 
 .card-details {
-  margin-top: 15px;
+  padding: 24px 20px 12px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .card-details h2 {
-  font-size: 1.8rem;
-  color: #333;
-  font-weight: bold;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a2236;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
 }
 
 .card-details p {
-  margin: 5px 0;
-  color: #555;
-  line-height: 1.6;
+  margin: 3px 0;
+  color: #4a5568;
+  font-size: 1rem;
 }
 
-/* Kart aksiyon düğmesi */
-.card-action button {
-  background-color: #007bff;
+.badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 4px 14px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(255, 88, 88, 0.08);
+}
+
+.card-action {
+  padding: 0 20px 20px 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-action .btn {
+  background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
   color: #fff;
   border: none;
-  border-radius: 25px;
-  padding: 10px 20px;
+  border-radius: 24px;
+  padding: 10px 28px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(30, 60, 114, 0.08);
+  transition: background 0.2s, transform 0.2s;
 }
 
-.card-action button:hover {
-  background-color: #0056b3;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+.card-action .btn:hover {
+  background: linear-gradient(90deg, #2a5298 0%, #1e3c72 100%);
+  transform: scale(1.07);
+}
+
+@media (max-width: 600px) {
+  .card-details {
+    padding: 16px 10px 8px 10px;
+  }
+  .card-action {
+    padding: 0 10px 10px 10px;
+  }
+  .card-image img {
+    height: 140px;
+  }
 }

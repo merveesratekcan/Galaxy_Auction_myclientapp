@@ -4,7 +4,6 @@ import './App.css';
 import { Header } from '../Layout';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import VehicleDetail from '../Pages/Vehicle/VehicleDetail';
-import { VehicleList } from '../Pages/Vehicle';
 import VehicleBase from '../Pages/Vehicle/VehicleBase';
 import Register from '../Pages/Account/Register';
 import Login from '../Pages/Account/Login';
@@ -14,7 +13,6 @@ function App() {
         <div className="App">
             
             <Header />
-            {/* <VehicleBase /> */}
             <div className='pd-5'>
                 <Routes>
                     <Route path='Vehicle/VehicleId/:vehicleId' element={<VehicleDetail></VehicleDetail>}></Route>
