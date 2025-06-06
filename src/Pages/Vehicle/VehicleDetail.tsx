@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useGetVehicleByIdQuery } from '../../Api/vehicleApi'
 import { Loader } from '../../Helper';
 import './Styles/VehicleDetail.css'
+import BidsDetail from '../Bid/BidsDetail';
 
 
 function VehicleDetail() {
@@ -11,6 +12,8 @@ function VehicleDetail() {
     const { vehicleId } = useParams();
     const{data,isLoading}=useGetVehicleByIdQuery(vehicleId)
     //useGetVehicleByIdQuery, vehicleApi'den gelen bir sorgudur. vehicleId parametresini alır ve ilgili veriyi getirir.
+    const safeVehicleId = vehicleId ? vehicleId : '';
+    // vehicleId'nin boş olup olmadığını kontrol eder. Eğer boşsa, safeVehicleId değişkenine boş bir string atar.
     if(data){
         console.log(data)
     }
@@ -24,6 +27,8 @@ function VehicleDetail() {
     }
 
   return (
+
+    <> 
     <div className='auction-item text-center'>
         <h1 className='text-2xl font-bold mb-4'>Vehicle Detail</h1>
         <img className='container' src={data.result.image}></img>
@@ -31,9 +36,10 @@ function VehicleDetail() {
         <p>Description:{data.result.additionalInformation}</p>
         <p>Currend Bid:</p>
         <p>Last Bidder:</p>
-
-
     </div>
+
+    <BidsDetail vehicleId={safeVehicleId}></BidsDetail>
+    </>
   )
 }
 

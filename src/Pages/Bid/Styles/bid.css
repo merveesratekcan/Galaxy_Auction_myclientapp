@@ -1,0 +1,70 @@
+/* Genel bid-list kutusu */
+.bid-list {
+    background: #f8fafc;
+    max-width: 500px;
+    margin: 32px auto 0 auto;
+    padding: 28px 24px 18px 24px;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    position: relative;
+    z-index: 2;
+}
+
+/* Tekil bid satırı */
+.bid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 14px 0;
+    transition: background 0.2s;
+}
+
+.bid:last-child {
+    border-bottom: none;
+}
+
+.bid:hover {
+    background: #f1f5f9;
+    border-radius: 8px;
+}
+
+/* Bid numarası */
+.bid-number {
+    font-weight: 600;
+    color: #334155;
+    font-size: 1.05rem;
+}
+
+/* Tarih */
+.bid-date {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-left: 12px;
+    white-space: nowrap;
+}
+
+/* Teklif miktarı */
+.bid-amount {
+    font-weight: 700;
+    color: #16a34a;
+    font-size: 1.08rem;
+    margin-left: 18px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .bid-list {
+        max-width: 98vw;
+        padding: 16px 6px 10px 6px;
+    }
+    .bid {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    .bid-amount {
+        margin-left: 0;
+    }
+}

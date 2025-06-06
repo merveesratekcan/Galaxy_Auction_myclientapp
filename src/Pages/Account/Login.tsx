@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import UserModel from '../../Interfaces/userModel';
 import { jwtDecode } from 'jwt-decode';
 import { setLoggerInUser } from '../../Storage/Redux/authenticationSlice';
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
   
@@ -14,6 +16,7 @@ function Login() {
    
     });
 
+    const navigate = useNavigate();
     const [userSignInMutation] = useSignInMutation();
 
     const Dispatch = useDispatch();
@@ -31,6 +34,7 @@ function Login() {
             Dispatch(setLoggerInUser({
              email,fullName, nameid, role
             }))
+            navigate('/'); // Redirect to home page after successful login
         }  
     }
 

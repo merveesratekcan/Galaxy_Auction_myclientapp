@@ -1,7 +1,7 @@
 /* Sayfa arkaplanı */
 body {
-    background-color: rgb(240, 240, 240); /* Siyah */
-    color: #000000; /* Beyaz */
+    background-color: rgb(240, 240, 240);
+    color: #000000;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -9,31 +9,35 @@ body {
 
 /* Başlık */
 h1 {
-    color: rgb(0, 0, 0); /* Kırmızı */
+    color: rgb(0, 0, 0);
     text-align: center;
 }
 
 /* Açık artırma öğesi içeriği */
 .auction-item {
-    background-color: white; /* Gri */
-    border: 2px solid #dfc1c1; /* Kırmızı */
+    background-color: white;
+    border: 2px solid #dfc1c1;
     border-radius: 10px;
     padding: 20px;
-    margin: 20px;
+    margin: 20px auto;
+    max-width: 700px;
+    box-sizing: border-box;
+    /* overflow: visible;  // Gerekirse ekle */
 }
 
 /* Teklif verme formu */
 .bid-form {
-    background-color: #555; /* Daha koyu bir gri */
-    border: 2px solid #FF0000; /* Kırmızı */
+    background-color: #555;
+    border: 2px solid #FF0000;
     border-radius: 10px;
     padding: 20px;
-    margin: 20px;
+    margin: 20px auto;
+    max-width: 500px;
+    box-sizing: border-box;
 }
 
-
 label {
-    color: #FF0000; /* Kırmızı */
+    color: #FF0000;
 }
 
 input[type="text"] {
@@ -42,10 +46,9 @@ input[type="text"] {
     margin: 10px 0;
 }
 
-
 button {
-    background-color: #FF0000; /* Kırmızı */
-    color: #fff; /* Beyaz */
+    background-color: #FF0000;
+    color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -53,5 +56,34 @@ button {
 }
 
 button:hover {
-    background-color: #FF3333; /* Kırmızının bir ton daha açığı */
+    background-color: #FF3333;
+}
+
+/* Bid-list ve bid için çakışmayı önle */
+.bid-list {
+    margin-top: 32px !important;
+    margin-bottom: 32px !important;
+    position: relative;
+    z-index: 3;
+    box-sizing: border-box;
+}
+
+.bid {
+    box-sizing: border-box;
+}
+
+/* Responsive düzenleme */
+@media (max-width: 700px) {
+    .auction-item {
+        margin: 10px 2vw;
+        padding: 10px;
+    }
+    .bid-form {
+        margin: 10px 2vw;
+        padding: 10px;
+    }
+    .bid-list {
+        margin: 16px 2vw !important;
+        padding: 10px 4px 10px 4px;
+    }
 }
