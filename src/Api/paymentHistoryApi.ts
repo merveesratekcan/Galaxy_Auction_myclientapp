@@ -1,6 +1,7 @@
 //https://localhost:7214/api/PaymentHistory/CheckIsStatusForAuction
 
 import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import exp from "constants";
 
 
 const paymentHistoryApi = createApi({
@@ -18,3 +19,5 @@ const paymentHistoryApi = createApi({
       }),
    }),
 });
+export const { useCheckStatusForAuctionPriceMutation } = paymentHistoryApi;
+export default paymentHistoryApi;
