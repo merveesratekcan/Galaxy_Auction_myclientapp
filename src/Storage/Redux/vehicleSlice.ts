@@ -3,6 +3,7 @@ import { get } from "http";
 
 const initialState = {
     vehicle: [],
+    vehicleId: "",
 }
 
 
@@ -14,8 +15,11 @@ export const vehicleSlice = createSlice({
         getVehicle: (state, action) => {
             state.vehicle = action.payload;
 
+        },
+        getVehicles: (state, action) => {
+            state.vehicleId = action.payload.vehicleId;
         }
     }
 })
-export const { getVehicle } = vehicleSlice.actions;
+export const { getVehicle,getVehicles } = vehicleSlice.actions;
 export const vehicleReducer = vehicleSlice.reducer;

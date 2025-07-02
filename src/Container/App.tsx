@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import UserModel from '../Interfaces/userModel';
 import { setLoggerInUser } from '../Storage/Redux/authenticationSlice';
 import { jwtDecode } from 'jwt-decode';
+import BidCheckout from '../Pages/Bid/BidCheckout';
 
 function App() {
 
@@ -36,6 +37,8 @@ function App() {
                     <Route path='/' element={<VehicleBase></VehicleBase>}></Route>
                     <Route path='Register' element={<Register></Register>}></Route>
                     <Route path='Login' element={<Login></Login>}></Route>
+                    <Route path='Vehicle/BidCheckout/:vehicleId' element={<BidCheckout></BidCheckout>}></Route>
+
                 </Routes>
             </div>
         </div>

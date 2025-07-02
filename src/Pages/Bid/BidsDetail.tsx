@@ -8,6 +8,8 @@ import userModel from '../../Interfaces/userModel';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../Storage/store';
 import CreateBid from './CreateBid';
+import { useGetVehicleByIdQuery } from '../../Api/vehicleApi';
+import { useNavigate } from 'react-router-dom';
 
 function BidsDetail(props:{vehicleId:string}) {
 
@@ -17,6 +19,12 @@ function BidsDetail(props:{vehicleId:string}) {
 
     var model : any = {}  
     const [result, setResultState] = useState();
+    const Navigate = useNavigate();
+
+    const response_data = useGetVehicleByIdQuery(parseInt(props.vehicleId));
+    if(response_data) {
+        console.log(response_data.currentData?.result.auctionPrice);
+    }
     
 
 
@@ -27,12 +35,21 @@ function BidsDetail(props:{vehicleId:string}) {
         vehicleId: parseInt(props.vehicleId)
       }
       checkStatusAuction(checkModel).then((response : any) => {
-        setResultState(response!.data?.isSuccess);
+        setResultState(response!.data?.isSuccess)
 
-      }).catch((error: any) => {
+      }).catch((error) => {
         console.error("Error checking auction status:", error);
         })
     },[props.vehicleId, userStore.nameid,checkStatusAuction])
+
+   
+    const handleBidCheckout = (props:any) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            Navigate('/login');
+        }
+        Navigate(`/Vehicle/BidCheckout/${props}`);
+    }
 
 
     if(!data) {
@@ -72,7 +89,7 @@ return (
        
     ):(
         <div className='container mb-5'>
-            <button className='btn btn-warning' type='button'>Pay PreAuction Price</button>
+            <button className='btn btn-warning' type='button' onClick={()=>handleBidCheckout(props.vehicleId)}>Pay PreAuction Price ${response_data.currentData?.result.auctionPrice} </button>
         </div>
     )
 }
