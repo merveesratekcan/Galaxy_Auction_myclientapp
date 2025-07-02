@@ -8,6 +8,10 @@ import { useDopaymentMutation } from '../../Api/paymetApi';
 import './Styles/bidCheckout.css';
 import { Loader } from '../../Helper';
 import { apiResponse } from '../../Interfaces/apiResponse';
+import { useDispatch } from 'react-redux';
+import { getOrderInfo } from '../../Storage/Redux/orderSlice';
+import { useNavigate } from 'react-router-dom';
+import { getVehicle } from '../../Storage/Redux/vehicleSlice';
  
 
 function BidCheckout() {
@@ -16,6 +20,8 @@ const { vehicleId } = useParams();
 const {data, isLoading} = useGetVehicleByIdQuery(vehicleId);
 const userStore : userModel = useSelector((state: RootState) => state.authentication);
 const [initialPayment]= useDopaymentMutation();
+const Dispatch = useDispatch();
+const Navigate = useNavigate();
 
 
 
@@ -36,11 +42,29 @@ const [loading, setLoadingState] = useState<boolean>();
     const {data} : apiResponse= await initialPayment({
         userId: userStore.nameid,
         vehicleId: vehicleId,
-      });
+      })
+
+    if(data) {
+        Dispatch(getOrderInfo({
+            vehicleId:data?.result.vehicleId,
+            userId: data?.result.userId,
+            stripePaymentIntentId: data?.result.stripePaymentIntentId,
+            clientSecret: data?.result.clientSecret
+        }))
+    }
+
+    Dispatch(getVehicle(
+        vehicleId
+    ))
+    Navigate('/payment',{
+        state: {apiResult: data?.result, userStore}
+    });
+
+
       console.log(data);
       setLoadingState(false);
+ 
  }
-
 
 
 if(data) {
@@ -92,6 +116,7 @@ if(data) {
     </div>
   )
 }
+
 else{
     return (
         <Loader></Loader>
@@ -99,8 +124,13 @@ else{
 }
 
 
-
-
 }
+
+
+    
+
+
+
+
 
 export default BidCheckout

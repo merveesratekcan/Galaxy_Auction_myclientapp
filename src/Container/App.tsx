@@ -12,6 +12,7 @@ import UserModel from '../Interfaces/userModel';
 import { setLoggerInUser } from '../Storage/Redux/authenticationSlice';
 import { jwtDecode } from 'jwt-decode';
 import BidCheckout from '../Pages/Bid/BidCheckout';
+import Payment from '../Pages/Payment/Payment';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
                     <Route path='Register' element={<Register></Register>}></Route>
                     <Route path='Login' element={<Login></Login>}></Route>
                     <Route path='Vehicle/BidCheckout/:vehicleId' element={<BidCheckout></BidCheckout>}></Route>
+                    <Route path='Payment' element={<Payment></Payment>}></Route>
 
                 </Routes>
             </div>

@@ -3,5 +3,4 @@ export default interface UserModel {
     fullName?: string;
     nameid?: string;
     role?: string;
-
 }

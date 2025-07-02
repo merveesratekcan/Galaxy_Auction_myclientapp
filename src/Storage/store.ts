@@ -6,11 +6,13 @@ import { authenticationReducer } from "./Redux/authenticationSlice";
 import bidApi from "../Api/bidApi";
 import paymentHistoryApi from "../Api/paymentHistoryApi";
 import paymentApi from "../Api/paymetApi";
+import { orderReducer } from "./Redux/orderSlice";
 
 const store = configureStore({
     reducer: {
         vehicleStore:vehicleReducer,
         authentication: authenticationReducer,
+        orderStore: orderReducer,
 
         [vehicleApi.reducerPath]: vehicleApi.reducer,
         [accountApi.reducerPath]: accountApi.reducer,
