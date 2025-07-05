@@ -1,6 +1,7 @@
 export default interface orderModel {
     userId: string;
-    vehicleId: number;
-    stripePaymentIntentId: string;
     clientSecret: string;
+    stripePaymentIntentId: string;
+    vehicleId: number;
+  
 }

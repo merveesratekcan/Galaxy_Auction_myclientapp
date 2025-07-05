@@ -13,19 +13,25 @@ const paymentHistoryApi = createApi({
    }),
    endpoints: (builder) => ({
       checkStatusForAuctionPrice: builder.mutation({
-         query: ({statusDetail}) => ({
-            url: `CheckIsStatusForAuction`,
-            method: 'POST',
-            body: statusDetail,
-         }),
-      }),
+  query: (statusDetail) => ({
+    url: `CheckIsStatusForAuction`,
+    method: 'POST',
+    body: statusDetail,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }),
+}),
       createPaymentHistory: builder.mutation({
-         query: ({paymentHistory}) => ({
-            url: `CreatePaymentHistory`,
-            method: 'POST',
-            body: paymentHistory,
-         }),
+    query: (paymentHistory) => ({
+        url: "CreatePaymentHistory",
+        method: 'POST',
+        body: paymentHistory,
+        headers: {
+      'Content-Type': 'application/json'
+    }
       }),
+   }),
    }),
 });
 export const { useCheckStatusForAuctionPriceMutation,useCreatePaymentHistoryMutation } = paymentHistoryApi;

@@ -14,7 +14,8 @@ function CheckoutForm() {
     const elements = useElements();
     const [isProsesing, setIsProcessing] = useState(false);
     const[createPaymentHistory] = useCreatePaymentHistoryMutation();
-    const vehicleId : string = useSelector((state: RootState) => state.vehicleStore.vehicleId);
+    // const vehicleId : string = useSelector((state: RootState) => state.vehicleStore.vehicleId);
+    const vehicleId = useSelector((state: RootState) => state.vehicleStore.vehicleId);
     const orderStore : orderModel = useSelector((state: RootState) => state.orderStore);
 
     const handleSubmit = async (event:React.ChangeEvent<HTMLFormElement>) => {
@@ -47,13 +48,13 @@ function CheckoutForm() {
             const response = createPaymentHistory({
                 userId: orderStore.userId,
                 clientSecret: orderStore.clientSecret,
-                stripePaymentIntentId: result.paymentIntent.id,
+                stripePaymentIntentId: orderStore.stripePaymentIntentId,
                 vehicleId: orderStore.vehicleId
-            })
+            });
 
-            console.log(response);
-            
-            Navigate(`/Vehicle/VehicleId/${vehicleId}`);
+           console.log("Payment History Created", response);
+            Navigate(`/Vehicle/VehicleId/${orderStore.vehicleId}`);
+           
         } 
 
         setIsProcessing(false);
