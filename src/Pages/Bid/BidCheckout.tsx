@@ -52,10 +52,11 @@ const [loading, setLoadingState] = useState<boolean>();
             clientSecret: data?.result.clientSecret
         }))
     }
-
+    if(vehicleId) {      
     Dispatch(getVehicle(
-        vehicleId
-    ))
+        vehicleId!
+    ))}
+    
     Navigate('/payment',{
         state: {apiResult: data?.result, userStore}
     });

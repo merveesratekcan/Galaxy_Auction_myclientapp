@@ -1,7 +1,9 @@
 //https://localhost:7214/api/PaymentHistory/CheckIsStatusForAuction
+//https://localhost:7214/api/PaymentHistory/CreatePaymentHistory
 
 import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import exp from "constants";
+import { create } from "domain";
 
 
 const paymentHistoryApi = createApi({
@@ -17,7 +19,14 @@ const paymentHistoryApi = createApi({
             body: statusDetail,
          }),
       }),
+      createPaymentHistory: builder.mutation({
+         query: ({paymentHistory}) => ({
+            url: `CreatePaymentHistory`,
+            method: 'POST',
+            body: paymentHistory,
+         }),
+      }),
    }),
 });
-export const { useCheckStatusForAuctionPriceMutation } = paymentHistoryApi;
+export const { useCheckStatusForAuctionPriceMutation,useCreatePaymentHistoryMutation } = paymentHistoryApi;
 export default paymentHistoryApi;
