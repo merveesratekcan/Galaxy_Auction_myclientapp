@@ -57,26 +57,6 @@ function BidsDetail(props:{vehicleId:string}) {
     }
 
 
-//   return (
-//     <div className='bid-list'>
-        
-//             {
-//                 data.result.map(
-//                     (bid:any)=>{return(
-//             <>
-//             <div className='mt-4' > 
-//                  <div className='bid'>   
-//                 <span className='bid-number'> {bid.bidId} </span> 
-//                 <span className='bidder-date'> {bid.bidDate}</span>
-//                 <span className='bid-amount'> {bid.bidAmount}</span>
-//             </div>
-//             <br />
-//             </div>
-//             </>
-//             )})
-//             }
-//     </div>
-//   )
 return (
      
     <>
@@ -84,7 +64,7 @@ return (
     { 
     result ? (
         <div className='container mb-5'>
-              <CreateBid></CreateBid>
+              <CreateBid vehicleId={parseInt(props.vehicleId)}></CreateBid>
         </div>
        
     ):(
