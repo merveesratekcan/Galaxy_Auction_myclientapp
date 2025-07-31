@@ -10,6 +10,7 @@ import { RootState } from '../../Storage/store';
 import CreateBid from './CreateBid';
 import { useGetVehicleByIdQuery } from '../../Api/vehicleApi';
 import { useNavigate } from 'react-router-dom';
+import { bidModel } from '../../Interfaces/bidModel';
 
 function BidsDetail(props:{vehicleId:string}) {
 
@@ -26,6 +27,9 @@ function BidsDetail(props:{vehicleId:string}) {
         console.log(response_data.currentData?.result.auctionPrice);
     }
     
+     useEffect(() => {
+        
+     }, [data]);
 
 
     useEffect(() => {
@@ -77,7 +81,7 @@ return (
    
     
   <div className='bid-list'>
-    {data.result.map((bid: any) => (
+    {data.result.slice().sort((a: bidModel, b: bidModel) => b.bidAmount - a.bidAmount).map((bid: any) => (
       <div className='mt-4' key={bid.bidId}>
         <div className='bid'>
           <span className='bid-number'>{bid.bidId}</span>

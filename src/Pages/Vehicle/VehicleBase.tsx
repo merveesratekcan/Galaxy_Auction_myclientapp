@@ -22,7 +22,8 @@ function VehicleBase() {
                 {isLoading ? (
                     <div>Loading...</div>
                 ) : (
-                    <VehicleList vehicles={vehicles} />
+                    <VehicleList //vehicles={vehicles} 
+                    />
                 )}
             </div>
         </div>
