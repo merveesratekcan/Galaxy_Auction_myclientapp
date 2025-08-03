@@ -4,6 +4,7 @@ import { get } from "http";
 const initialState = {
     vehicle: [],
     vehicleId: "",
+    search: "",
 }
 
 
@@ -18,8 +19,11 @@ export const vehicleSlice = createSlice({
         },
         getVehicles: (state, action) => {
             state.vehicleId = action.payload;
+        },
+        setSearchItem: (state, action) => {
+            state.search = action.payload;
         }
     }
 })
-export const { getVehicle,getVehicles } = vehicleSlice.actions;
+export const { getVehicle,getVehicles,setSearchItem } = vehicleSlice.actions;
 export const vehicleReducer = vehicleSlice.reducer;

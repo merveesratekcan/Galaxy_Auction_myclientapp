@@ -6,6 +6,8 @@ import Circle from './Circle';
 import { Link } from 'react-router-dom';
 import Banner from './Banner';
 import { SD_SORT } from '../../Interfaces/enums/SD_SORT';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Storage/store';
 
 function VehicleList() {
     const { data, isLoading } = useGetVehiclesQuery(null);
@@ -13,6 +15,8 @@ function VehicleList() {
     const [result, setResult] = useState<vehicleModel[]>([]);
     const [vehicles, setVehiclesState] = useState<vehicleModel[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(0);
+    const [setSearch,setSearchState] = useState("");
+    let searchElement : string = useSelector((state: RootState) => state.vehicleStore.search);
 
     const defaultPaginationArray:number[] =[]
     const PaginationArray:vehicleModel[] = [];
@@ -64,17 +68,30 @@ function VehicleList() {
         if (data) {
             setVehiclesState(data.result);
            setResult(data.result);
-            // İlk açılışta sadece ilk 6 ürünü göster
-        setFilterResponse(data.result.slice(0, 6));
-        setCurrentPage(0);
         }
     }, [data]);
 
-    // useEffect(() => {
-    //     if (data) {
-    //         setFilterResponse(data.result);
-    //     }
-    // }, [vehicles,data]);
+    useEffect(() => {
+    const myArray: vehicleModel[] = [];
+    setSearchState(searchElement);
+
+    if (vehicles && searchElement.trim() !== "") {
+        vehicles.forEach((element) => {
+            const response =
+                element.brandAndModel.toLowerCase().includes(searchElement.toLowerCase()) ||
+                element.color.toLowerCase().includes(searchElement.toLowerCase()) ||
+                element.manufacturingYear.toString().includes(searchElement) ||
+                element.price.toString().includes(searchElement);
+            if (response) {
+                myArray.push(element);
+            }
+        });
+        setFilterResponse(myArray);
+    } else if (data) {
+        // Arama kutusu boşsa tüm ürünleri göster
+        setFilterResponse(data.result.slice(currentPage * 6, currentPage * 6 + 6));
+    }
+}, [searchElement, vehicles, data, currentPage]);
 
 
    if (data){
