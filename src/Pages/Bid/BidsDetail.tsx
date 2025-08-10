@@ -11,15 +11,20 @@ import CreateBid from './CreateBid';
 import { useGetVehicleByIdQuery } from '../../Api/vehicleApi';
 import { useNavigate } from 'react-router-dom';
 import { bidModel } from '../../Interfaces/bidModel';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
 function BidsDetail(props:{vehicleId:string}) {
 
     const {data, isLoading} = useGetBidsByVehicleIdQuery(parseInt(props.vehicleId));
     const userStore : userModel = useSelector((state: RootState) => state.authentication);
+    const bidStore:any = useSelector((state: RootState) => state.bidStore);
+    const [hubConnection, setHubConnection] = useState<HubConnection>();
+    const [triggerConnection, setTriggerConnection] = useState<boolean>();
     const [checkStatusAuction] = useCheckStatusForAuctionPriceMutation();
 
     var model : any = {}  
     const [result, setResultState] = useState();
+    var variable: string = "";
     const Navigate = useNavigate();
 
     const response_data = useGetVehicleByIdQuery(parseInt(props.vehicleId));
@@ -28,12 +33,28 @@ function BidsDetail(props:{vehicleId:string}) {
     }
     
      useEffect(() => {
-        
+        createHubConnection();
      }, [data]);
+
+     const createHubConnection= async()=> {
+      const hubConnection=new HubConnectionBuilder().withUrl("https://localhost:7214/BidUpdate/Hub").configureLogging(LogLevel.Information).build();
+       
+      try {
+        await hubConnection.start();
+        console.log("Hub connection started");
+      } catch (error) {
+        console.log("Error starting hub connection:", error);
+      }
+      setHubConnection(hubConnection);
+
+     }
 
 
     useEffect(() => {
-        console.log("triggered");
+         
+
+       if (hubConnection) {
+         console.log("triggered");
         const checkModel: checkStatus = {
         userId: userStore.nameid!,
         vehicleId: parseInt(props.vehicleId)
@@ -44,7 +65,24 @@ function BidsDetail(props:{vehicleId:string}) {
       }).catch((error) => {
         console.error("Error checking auction status:", error);
         })
-    },[props.vehicleId, userStore.nameid,checkStatusAuction])
+
+        hubConnection.send("NewBid").catch((error) => {
+          console.error("Error sending TriggerNewBid:", error);
+        });
+        setTriggerConnection(true);
+       }
+
+       
+    },[props.vehicleId, userStore.nameid,checkStatusAuction,hubConnection,bidStore])
+
+    useEffect(() => {
+      if (hubConnection) {
+        hubConnection.on("messageReceived", (message) => {
+          console.log("Trigger newBid:", message);
+          variable = message;
+        }); 
+      }
+    }, [hubConnection,triggerConnection]); 
 
    
     const handleBidCheckout = (props:any) => {
@@ -81,6 +119,7 @@ return (
    
     
   <div className='bid-list'>
+    <h2 className='text-center'>{variable}</h2>
     {data.result.slice().sort((a: bidModel, b: bidModel) => b.bidAmount - a.bidAmount).map((bid: any) => (
       <div className='mt-4' key={bid.bidId}>
         <div className='bid'>

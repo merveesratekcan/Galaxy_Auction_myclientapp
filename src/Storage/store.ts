@@ -7,12 +7,14 @@ import bidApi from "../Api/bidApi";
 import paymentHistoryApi from "../Api/paymentHistoryApi";
 import paymentApi from "../Api/paymetApi";
 import { orderReducer } from "./Redux/orderSlice";
+import { bidReducer } from "./Redux/bidSlice";
 
 const store = configureStore({
     reducer: {
         vehicleStore:vehicleReducer,
         authentication: authenticationReducer,
         orderStore: orderReducer,
+        bidStore: bidReducer,
 
         [vehicleApi.reducerPath]: vehicleApi.reducer,
         [accountApi.reducerPath]: accountApi.reducer,

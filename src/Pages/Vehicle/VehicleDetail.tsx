@@ -18,9 +18,11 @@ function VehicleDetail() {
 
     var highBid=0;
     if(data){
-        const valueResponse = data.result.bids.slice().sort((a: any, b: any) => b-a)
-        const higherBid = valueResponse[valueResponse.length - 1].bidAmount;
-        highBid = higherBid;
+        if(data.result.bids.length > 0) {
+            const valueResponse = data.result.bids.slice().sort((a: any, b: any) => b-a)
+            const higherBid = valueResponse[valueResponse.length - 1].bidAmount;
+            highBid = higherBid;
+        }
     }
     if(!data){
          return(
