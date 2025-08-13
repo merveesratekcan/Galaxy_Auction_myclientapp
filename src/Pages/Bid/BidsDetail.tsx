@@ -12,6 +12,8 @@ import { useGetVehicleByIdQuery } from '../../Api/vehicleApi';
 import { useNavigate } from 'react-router-dom';
 import { bidModel } from '../../Interfaces/bidModel';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { apiResponse } from '../../Interfaces/apiResponse';
+import { newBidModelResponse } from '../../Interfaces/newBidModelResponse';
 
 function BidsDetail(props:{vehicleId:string}) {
 
@@ -24,7 +26,8 @@ function BidsDetail(props:{vehicleId:string}) {
 
     var model : any = {}  
     const [result, setResultState] = useState();
-    var variable: string = "";
+    const[variable, setVariable] = useState();
+    const[bidState, setBidState] = useState<newBidModelResponse[]>([]);
     const Navigate = useNavigate();
 
     const response_data = useGetVehicleByIdQuery(parseInt(props.vehicleId));
@@ -33,8 +36,11 @@ function BidsDetail(props:{vehicleId:string}) {
     }
     
      useEffect(() => {
+        if(data) {
+        setBidState(data.result);
+      }
         createHubConnection();
-     }, [data]);
+     },[data]);
 
      const createHubConnection= async()=> {
       const hubConnection=new HubConnectionBuilder().withUrl("https://localhost:7214/BidUpdate/Hub").configureLogging(LogLevel.Information).build();
@@ -48,11 +54,10 @@ function BidsDetail(props:{vehicleId:string}) {
       setHubConnection(hubConnection);
 
      }
+ 
 
 
-    useEffect(() => {
-         
-
+      useEffect(() => {      
        if (hubConnection) {
          console.log("triggered");
         const checkModel: checkStatus = {
@@ -66,7 +71,7 @@ function BidsDetail(props:{vehicleId:string}) {
         console.error("Error checking auction status:", error);
         })
 
-        hubConnection.send("NewBid").catch((error) => {
+        hubConnection.send("NewBid",parseInt(props.vehicleId)).catch((error) => {
           console.error("Error sending TriggerNewBid:", error);
         });
         setTriggerConnection(true);
@@ -77,9 +82,9 @@ function BidsDetail(props:{vehicleId:string}) {
 
     useEffect(() => {
       if (hubConnection) {
-        hubConnection.on("messageReceived", (message) => {
+        hubConnection.on("messageReceived", (message:any) => {
           console.log("Trigger newBid:", message);
-          variable = message;
+          setBidState(message);
         }); 
       }
     }, [hubConnection,triggerConnection]); 
@@ -120,7 +125,7 @@ return (
     
   <div className='bid-list'>
     <h2 className='text-center'>{variable}</h2>
-    {data.result.slice().sort((a: bidModel, b: bidModel) => b.bidAmount - a.bidAmount).map((bid: any) => (
+    {bidState?.slice().sort((a: bidModel, b: bidModel) => b.bidAmount - a.bidAmount).map((bid: any) => (
       <div className='mt-4' key={bid.bidId}>
         <div className='bid'>
           <span className='bid-number'>{bid.bidId}</span>
