@@ -6,6 +6,7 @@ import UserModel from '../../Interfaces/userModel';
 import { jwtDecode } from 'jwt-decode';
 import { setLoggerInUser } from '../../Storage/Redux/authenticationSlice';
 import { useNavigate } from 'react-router-dom';
+import { ToastrNotify } from '../../Helper';
 
 
 function Login() {
@@ -35,6 +36,7 @@ function Login() {
              email,fullName, nameid, role
             }))
             navigate('/'); // Redirect to home page after successful login
+            ToastrNotify("Login Successful", "success");
         }  
     }
 
