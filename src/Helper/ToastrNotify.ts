@@ -42,7 +42,7 @@ const ToastrNotify = (message: string, notifyType: any) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        theme: "dark",
+        theme: "light",
         transition: Slide,
         style,
     });

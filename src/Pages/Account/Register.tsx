@@ -101,8 +101,13 @@ import { useSignUpMutation } from '../../Api/accountApi';
 import './Styles/Register.css';
 import { SD_ROLES } from '../../Interfaces/enums/SD_ROLES';
 import { apiResponse } from '../../Interfaces/apiResponse';
+import { useNavigate
+
+ } from 'react-router-dom';
+import { ToastrNotify } from '../../Helper';
 
 function Register() {
+  const Navigate = useNavigate();
   const [useData, setUserDataState] = useState({
     userName: '',
     password: '',
@@ -114,27 +119,29 @@ function Register() {
   const [userRegisterMutation] = useSignUpMutation();
 
   const handleRegistrationSubmit = async () => {
-    try {
-      const response: apiResponse = await userRegisterMutation({
-        userName: useData.userName.trim(),
-        fullName: useData.fullName.trim(),
-        password: useData.password.trim(),
-        userType: useData.userType.trim(),
-      }).unwrap(); // unwrap() ile hata durumlarını yakalayabilirsiniz
-console.log("Response:", response);
-      
-    } catch (error: any) {
-      console.error('An error occurred:', error?.data || error);
-
-      // Backend'den dönen hata mesajlarını işleme
-      if (error?.data?.errorMessages) {
-        setErrorMessages(error.data.errorMessages);
-      } else {
-        setErrorMessages(['An unexpected error occurred.']);
-      }
-    }
-    
+  const payload = {
+    userName: useData.userName.trim(),
+    fullName: useData.fullName.trim(),
+    password: useData.password.trim(),
+    userType: useData.userType, // trim gerekmez
   };
+
+  try {
+    const data = await userRegisterMutation(payload).unwrap(); // body döner
+    if (data?.isSuccess) {
+      ToastrNotify('Registration successful', 'success');
+      Navigate('/');
+    } else {
+      const msg = data?.errorMessages?.[0] ?? 'Registration failed';
+      ToastrNotify(msg, 'error');
+      setErrorMessages(data?.errorMessages ?? [msg]);
+    }
+  } catch (err: any) {
+    const msg = err?.data?.errorMessages?.[0] ?? 'Registration failed';
+    ToastrNotify(msg, 'error');
+    setErrorMessages(err?.data?.errorMessages ?? [msg]);
+  }
+};
 
   return (
     <section>
