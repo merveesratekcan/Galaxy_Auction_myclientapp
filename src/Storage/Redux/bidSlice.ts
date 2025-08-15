@@ -1,20 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
-export const initialSatete:any={
-  auctionBid:Number
+export interface BidState {
+  auctionBid: number;
 }
 
+export const initialState: BidState = {
+  auctionBid: 0,
+};
 
 export const bidSlice = createSlice({
-   name: 'bid',
-   initialState: initialSatete,
-   reducers: {
-      setBidsChange: (state, action) => {
-        state.auctionBid = action.payload;
-      },
-
-   },
+  name: "bid",
+  initialState,
+  reducers: {
+    setBidsChange: (state, action: PayloadAction<number>) => {
+      state.auctionBid = action.payload;
+    },
+  },
 });
 
 export const { setBidsChange } = bidSlice.actions;

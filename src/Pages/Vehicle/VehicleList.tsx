@@ -60,11 +60,19 @@ function VehicleList() {
         const end = start + pageSize;
         forshortArray = result.slice(start, end); 
     }
+    localStorage.setItem('myFilter', JSON.stringify(forshortArray));
+
         setFilterResponse(forshortArray);
     };
 
 
     useEffect(() => {
+
+        const storedArray=JSON.parse(localStorage.getItem('myFilter') || '[]');
+        if (storedArray.length > 0) {
+            setFilterResponse(storedArray);
+        }
+
         if (data) {
             setVehiclesState(data.result);
            setResult(data.result);
@@ -72,6 +80,9 @@ function VehicleList() {
     }, [data]);
 
     useEffect(() => {
+      const storedArray=JSON.parse(localStorage.getItem('myFilter') || '[]');
+      setFilterResponse(storedArray);
+
     const myArray: vehicleModel[] = [];
     setSearchState(searchElement);
 
@@ -129,8 +140,8 @@ function VehicleList() {
                 {isLoading ? (
                     <div>Loading...</div>
                 ) : (
-                    filterResponse.map((vehicle, index) => (
-                        <div className="col" key={index}>
+                    filterResponse.map((vehicle) => (
+                        <div className="col" key={vehicle.vehicleId}>
                             <div className="auction-card text-center">
                                 <div className="card-image text-center">
                                     <img src={vehicle.image || 'https://via.placeholder.com/150'} alt={vehicle.brandAndModel} />
@@ -155,15 +166,19 @@ function VehicleList() {
                 )}
             </div>
             <nav aria-label="Page navigation example">
-            <ul className="pagination">
-                <li className="page-item"><a className="page-link" onClick={() => handleFilterClick("Pagination", currentPage - 1)}>Previous</a></li>
-                {defaultPaginationArray.map((key, index) => (
-                    <li className="page-item" >
-                        <a className="page-link" key={index} onClick={() => handleFilterClick("Pagination", index)}>{key}</a>
-                    </li>
-                ))}
-                <li className="page-item"><a className="page-link" onClick={() => handleFilterClick("Pagination", currentPage + 1)}>Next</a></li>
-            </ul>
+                        <ul className="pagination">
+                                <li className="page-item" key="prev">
+                                    <a className="page-link" onClick={() => handleFilterClick("Pagination", Math.max(0, currentPage - 1))}>Previous</a>
+                                </li>
+                                {defaultPaginationArray.map((pageNumber, index) => (
+                                        <li className="page-item" key={`page-${pageNumber}`}>
+                                                <a className="page-link" onClick={() => handleFilterClick("Pagination", index)}>{pageNumber}</a>
+                                        </li>
+                                ))}
+                                <li className="page-item" key="next">
+                                    <a className="page-link" onClick={() => handleFilterClick("Pagination", Math.min(defaultPaginationArray.length - 1, currentPage + 1))}>Next</a>
+                                </li>
+                        </ul>
             </nav>
         </div>
     );

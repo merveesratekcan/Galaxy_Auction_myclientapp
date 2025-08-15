@@ -5,7 +5,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import userModel from '../Interfaces/userModel';
 import { RootState } from '../Storage/store';
 import { initialState, setLoggerInUser } from '../Storage/Redux/authenticationSlice';
-import { Navigate, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 
 function Header() {
@@ -30,7 +30,7 @@ function Header() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-gray">
       <div className="container">
-        <a className="navbar-brand" href="/">Galaxy Auction</a>
+  <Link className="navbar-brand" to="/">Galaxy Auction</Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -46,16 +46,16 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+              <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
             </li>
 
             { 
             userStore ? (           
               
               <li className="nav-item">
-              <a className="nav-link" href="#">
+              <span className="nav-link">
                 {userStore.fullName ? userStore.fullName : "User"}
-              </a>
+              </span>
             </li>) :" "
           }
 
@@ -68,26 +68,22 @@ function Header() {
                 Menu's
               </button>
               <ul className="dropdown-menu dropdown-menu-dark">
-                <li><a className="dropdown-item" href="#">Vehicle List</a></li>
+                <li><NavLink className="dropdown-item" to="/">Vehicle List</NavLink></li>
               </ul>
             </li>
           </ul>
  <ul className="navbar-nav">
           {userStore.nameid !="" ?  (
              <li className="nav-item" style={{ marginRight: "5px" }}>
-              <a type='button' className="btn btn-danger" onClick={handleLogout} href="#">Logout</a>
+              <button type='button' className="btn btn-danger" onClick={handleLogout}>Logout</button>
             </li>
           ) : (
             <>
               <li className="nav-item" style={{ marginRight: "5px" }}>
-                <NavLink className="btn btn-success" to="/register">
-                <a className="btn btn-success" href="#">Register</a>
-                </NavLink>
+                <NavLink className="btn btn-success" to="/register">Register</NavLink>
               </li>
               <li className="nav-item" style={{ marginRight: "5px" }}>
-                <NavLink className="btn btn-success" to="/login">
-                <a className="btn btn-success" href="#">Login</a>
-                </NavLink>
+                <NavLink className="btn btn-success" to="/login">Login</NavLink>
               </li>
             </>
           )
